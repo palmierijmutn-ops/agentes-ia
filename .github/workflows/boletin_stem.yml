@@ -1,0 +1,29 @@
+name: Boletin Semanal STEM
+
+on:
+  schedule:
+    # 09:00 hs Argentina (UTC-3) corresponde a las 12:00 UTC
+    - cron: '0 12 * * 1'
+  workflow_dispatch: # Permite probarlo manualmente cuando quieras
+
+jobs:
+  ejecutar-agente:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar librerías
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar agente de innovacion
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: python agente_educacion.py
