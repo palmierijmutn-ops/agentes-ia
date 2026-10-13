@@ -1,1 +1,1 @@
-Repositorio para almacenar y programar la ejecución de agentes de IA
+Agentes IA que recopilan y organizan documentos, videos en listas curadas. 
