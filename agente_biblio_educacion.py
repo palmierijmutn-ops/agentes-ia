@@ -34,6 +34,8 @@ FEEDS_INNOVACION_EDUCATIVA = {
     "Observatorio Tec de Monterrey": "https://observatorio.tec.mx/feed/",
     "Eduteka (Universidad Icesi)": "https://eduteka.icesi.edu.co/rss",
     "RELPE (Red Latinoamericana)": "https://relpe.org/feed/",
+    "MIT (Innovación STEM)": "https://news.mit.edu/rss/topic/education",
+    "EDUCAUCE (Educación y Tecnología)": "https://er.educause.edu/rss",
 
     # --- PORTALES DE EUROPA ---
     "INTEF (Blog Principal)": "https://intef.es/feed/",
