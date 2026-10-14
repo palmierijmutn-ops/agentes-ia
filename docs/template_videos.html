@@ -1,1 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videos y Conferencias - CIIE | UTN FRBA</title>
+  <style>
+    :root {
+      --utn-blue: #003865;
+      --utn-light-blue: #006699;
+      --text-dark: #222222;
+      --text-muted: #5f6368;
+      --bg-page: #f4f6f9;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --accent: #c5221f;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .header-bar {
+      background: #ffffff;
+      border-bottom: 3px solid var(--utn-blue);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 20px 0;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo-inst {
+      max-height: 70px;
+      width: auto;
+      object-fit: contain;
+    }
+    .brand-titles h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      color: var(--utn-blue);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .brand-titles h2 {
+      margin: 4px 0 0 0;
+      font-size: 1.05rem;
+      color: var(--utn-light-blue);
+      font-weight: 500;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+    .nav-tab {
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      background: #fff;
+      transition: all 0.2s ease;
+    }
+    .nav-tab.active {
+      background: var(--utn-blue);
+      color: #fff;
+      border-color: var(--utn-blue);
+    }
+    .main-content {
+      padding: 30px 0 50px 0;
+    }
+    .card-container {
+      background: var(--bg-card);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 28px;
+    }
+    .portal-section {
+      margin-bottom: 28px;
+    }
+    .portal-title {
+      color: var(--accent);
+      border-bottom: 2px solid #fce8e6;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .item-block {
+      margin-bottom: 18px;
+    }
+    .item-title {
+      font-size: 1.05rem;
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .item-title:hover {
+      text-decoration: underline;
+    }
+    .item-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .item-summary {
+      margin: 6px 0 0 0;
+      font-size: 0.95rem;
+      color: #3c4043;
+    }
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 20px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
 
+  <header class="header-bar">
+    <div class="container">
+      <div class="brand-wrapper">
+        <img src="../assets/logo-ciie.png" alt="Logo CIIE - UTN FRBA" class="logo-inst" onerror="this.src='assets/logo-ciie.png'; this.onerror=null;">
+        <div class="brand-titles">
+          <h1>Centro de Investigación e Innovación Educativa (CIIE)</h1>
+          <h2>Observatorio de Vigilancia y Curaduría en Innovación Educativa y STEM</h2>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="index.html" class="nav-tab ">📰 Publicaciones y Artículos</a>
+        <a href="videos.html" class="nav-tab active">▶ Videos y Conferencias</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="card-container">
+        <!-- INICIO_CONTENIDO_DINAMICO -->
+        <p style="color: #5f6368; font-style: italic;">
+          Cargando contenido verificado...
+        </p>
+        <!-- FIN_CONTENIDO_DINAMICO -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Facultad Regional Buenos Aires | Universidad Tecnológica Nacional (UTN)</p>
+    </div>
+  </footer>
+
+</body>
+</html>
