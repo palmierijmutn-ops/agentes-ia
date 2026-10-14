@@ -164,6 +164,46 @@ def recopilar_articulos_semanales():
             print("  [o] Sin publicaciones nuevas en la última semana.")
 
     return articulos_recolectados
+# ---------------------------------------------------------------------------
+# Funciones de actualización web
+# ---------------------------------------------------------------------------
+MARCADOR_INICIO = "<!-- INICIO_CONTENIDO_DINAMICO -->"
+MARCADOR_FIN = "<!-- FIN_CONTENIDO_DINAMICO -->"
+
+def generar_fragmento_articulos_html(articulos_por_portal) -> str:
+    if not articulos_por_portal:
+        return "<p style='color: #5f6368;'>No se detectaron nuevos artículos en los últimos 7 días.</p>"
+
+    fragmento = "<p style='color: #5f6368; font-size: 14px;'>Publicaciones cosechadas en los últimos 7 días. Enlaces verificados.</p>"
+    for portal, items in articulos_por_portal.items():
+        fragmento += f"<div class='portal-section'><h3 class='portal-title'>{portal}</h3><ul style='padding-left: 20px;'>"
+        for it in items:
+            fragmento += f"""
+            <li class='item-block'>
+              <a href="{it['url']}" target="_blank" class='item-title'>{it['titulo']}</a><br>
+              <span class='item-meta'>Fecha: {it['fecha']} | Fuente verificada</span>
+              <p class='item-summary'>{it['resumen']}</p>
+            </li>
+            """
+        fragmento += "</ul></div>"
+    return fragmento
+
+def actualizar_pagina_articulos(fragmento_html: str):
+    os.makedirs("docs", exist_ok=True)
+    plantilla_path = "docs/template_articulos.html"
+    salida_path = "docs/index.html"
+
+    archivo_base = plantilla_path if os.path.exists(plantilla_path) else salida_path
+    with open(archivo_base, "r", encoding="utf-8") as f:
+        plantilla = f.read()
+
+    patron = rf"({re.escape(MARCADOR_INICIO)})(.*?)({re.escape(MARCADOR_FIN)})"
+    nuevo_bloque = rf"\1\n{fragmento_html}\n\3"
+    html_final = re.sub(patron, nuevo_bloque, plantilla, flags=re.DOTALL)
+
+    with open(salida_path, "w", encoding="utf-8") as f:
+        f.write(html_final)
+    print(f"[+] '{salida_path}' actualizado exitosamente.")
 
 # ---------------------------------------------------------------------------
 # Generación de Correo y Envío
@@ -245,5 +285,11 @@ def enviar_reporte_correo(contenido_html: str):
 if __name__ == "__main__":
     print("Iniciando recopilación semanal de innovación educativa...")
     articulos = recopilar_articulos_semanales()
-    cuerpo = construir_cuerpo_html(articulos)
-    enviar_reporte_correo(cuerpo)
+    
+    # 1. Actualiza la página web en GitHub Pages (docs/index.html)
+    fragmento_web = generar_fragmento_articulos_html(articulos)
+    actualizar_pagina_articulos(fragmento_web)
+    
+    # 2. Envía el correo habitual con el formato de email
+    cuerpo_correo = construir_cuerpo_html(articulos)
+    enviar_reporte_correo(cuerpo_correo)
