@@ -6,6 +6,10 @@ on:
     - cron: '0 21 * * 5'
   workflow_dispatch: # Permite probarlo manualmente cuando quieras
 
+# Permisos necesarios para subir los cambios a la rama
+permissions:
+  contents: write
+
 jobs:
   ejecutar-agente-videos:
     runs-on: ubuntu-latest
@@ -28,3 +32,10 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: python agente_videos_educacion.py
+
+      - name: Publicar cambios en GitHub Pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff-index --quiet HEAD || (git commit -m "Actualizar observatorio de videos en GitHub Pages [skip ci]" && git push)
