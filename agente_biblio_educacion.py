@@ -171,21 +171,50 @@ MARCADOR_INICIO = "<!-- INICIO_CONTENIDO_DINAMICO -->"
 MARCADOR_FIN = "<!-- FIN_CONTENIDO_DINAMICO -->"
 
 def generar_fragmento_articulos_html(articulos_por_portal) -> str:
-    if not articulos_por_portal:
-        return "<p style='color: #5f6368;'>No se detectaron nuevos artículos en los últimos 7 días.</p>"
+    """Genera el bloque HTML dinámico con encabezado de referencia institucional."""
+    fecha_actual = datetime.now().strftime("%d/%m/%Y")
 
-    fragmento = "<p style='color: #5f6368; font-size: 14px;'>Publicaciones cosechadas en los últimos 7 días. Enlaces verificados.</p>"
+    if not articulos_por_portal:
+        return f"""
+        <div class="referencia-seccion" style="background-color: #f8f9fa; border-left: 4px solid var(--utn-blue); padding: 14px 18px; margin-bottom: 24px; border-radius: 0 4px 4px 0;">
+          <p style="margin: 0; font-size: 0.95rem; color: #3c4043;">
+            <strong>Vigilancia y Curaduría Bibliográfica Semanal</strong><br>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">
+              Corte al {fecha_actual} | Relevamiento de publicaciones académicas en los últimos 7 días.
+            </span>
+          </p>
+          <p style="margin: 8px 0 0 0; font-size: 0.9rem; color: #5f6368; font-style: italic;">
+            No se detectaron nuevas publicaciones indexadas durante los últimos 7 días en las fuentes monitoreadas.
+          </p>
+        </div>
+        """
+
+    # Texto de referencia al comienzo de la sección
+    fragmento = f"""
+    <div class="referencia-seccion" style="background-color: #f8f9fa; border-left: 4px solid var(--utn-blue); padding: 14px 18px; margin-bottom: 24px; border-radius: 0 4px 4px 0;">
+      <p style="margin: 0; font-size: 0.95rem; color: #202124;">
+        <strong>Vigilancia y Curaduría Bibliográfica Semanal</strong>
+      </p>
+      <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: #5f6368; line-height: 1.4;">
+        Publicaciones, artículos e informes cosechados de portales educativos y revistas de referencia de América y Europa durante los últimos 7 días (actualizado al <strong>{fecha_actual}</strong>). Todos los enlaces y accesos han sido verificados de forma autónoma.
+      </p>
+    </div>
+    """
+
     for portal, items in articulos_por_portal.items():
-        fragmento += f"<div class='portal-section'><h3 class='portal-title'>{portal}</h3><ul style='padding-left: 20px;'>"
+        fragmento += f"<div class='portal-section'>"
+        fragmento += f"<h3 class='portal-title'>{portal}</h3>"
+        fragmento += "<ul style='padding-left: 20px; margin: 0;'>"
         for it in items:
             fragmento += f"""
             <li class='item-block'>
               <a href="{it['url']}" target="_blank" class='item-title'>{it['titulo']}</a><br>
-              <span class='item-meta'>Fecha: {it['fecha']} | Fuente verificada</span>
+              <span class='item-meta'>Publicado: {it['fecha']} | Enlace verificado</span>
               <p class='item-summary'>{it['resumen']}</p>
             </li>
             """
         fragmento += "</ul></div>"
+
     return fragmento
 
 def actualizar_pagina_articulos(fragmento_html: str):
